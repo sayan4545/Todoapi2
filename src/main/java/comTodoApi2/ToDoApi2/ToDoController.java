@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -42,4 +43,18 @@ public class ToDoController {
         ErrorMessageClass errorMessage = new ErrorMessageClass("Todo not found!!");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
+    @DeleteMapping("/deleteTodo/{todoId}")
+    public ResponseEntity<?> deleteToDobyId(@PathVariable long todoId){
+        Iterator<ToDo> iterator = todos.iterator();
+        while(iterator.hasNext()){
+            ToDo todo = iterator.next();
+            if(todoId ==todo.getId()){
+                iterator.remove();
+                return  ResponseEntity.ok().build();
+            }
+        }
+        ErrorMessageClass errorMessage = new ErrorMessageClass("Todo not found to be deleted");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+    }
+
 }
