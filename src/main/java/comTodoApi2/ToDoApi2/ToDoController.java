@@ -29,4 +29,16 @@ public class ToDoController {
         todos.add(newTodo);
         return ResponseEntity.status(HttpStatus.CREATED).body(newTodo);
     }
+    @GetMapping("getTodo/{todoId}")
+    public ResponseEntity<?> getToDoById(@PathVariable long todoId){
+        for(ToDo todo:todos){
+            if(todoId == todo.getId()){
+                return  ResponseEntity.ok(todo);
+            }
+
+        }
+        // alomng with 404 not found send a json object liken todo not found.
+        ErrorMessageClass errorMessage = new ErrorMessageClass("Todo not found!!");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+    }
 }
