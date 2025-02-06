@@ -56,5 +56,18 @@ public class ToDoController {
         ErrorMessageClass errorMessage = new ErrorMessageClass("Todo not found to be deleted");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
+    @PatchMapping("/patchRequest/{todoId}")
+    public ResponseEntity<?> updateByID(@PathVariable long todoId){
+        String title = "Todo changed";
+        for(ToDo todo : todos){
+            if(todoId==todo.getId()){
+                todo.setCompleted(todo.isCompleted());
+                todo.setTitle(title);
+                return ResponseEntity.ok().build();
+            }
+        }
+        ErrorMessageClass errorMessage = new ErrorMessageClass("Bad requesy");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+    }
 
 }
