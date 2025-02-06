@@ -1,9 +1,8 @@
 package comTodoApi2.ToDoApi2;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,13 @@ public class ToDoController {
 
     }
     @GetMapping("/getTodo")
-    public List<ToDo> getTodos(){
-        return todos;
+    public ResponseEntity<List<ToDo>> getTodos(){
+        return ResponseEntity.ok(todos);
+    }
+    @PostMapping("/addTodo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<ToDo> addToDo(@RequestBody ToDo newTodo){
+        todos.add(newTodo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTodo);
     }
 }
