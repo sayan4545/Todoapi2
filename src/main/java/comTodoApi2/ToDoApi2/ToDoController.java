@@ -57,13 +57,17 @@ public class ToDoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
     }
     @PatchMapping("/patchRequest/{todoId}")
-    public ResponseEntity<?> updateByID(@PathVariable long todoId){
-        String title = "Todo changed";
+    public ResponseEntity<?> updateByID(@PathVariable long todoId, @RequestBody UpdateToDoRequest updateToDoRequest){
         for(ToDo todo : todos){
             if(todoId==todo.getId()){
-                todo.setCompleted(todo.isCompleted());
-                todo.setTitle(title);
-                return ResponseEntity.ok().build();
+                if (updateToDoRequest.getTitle()!=null){
+                    updateToDoRequest.setTitle(updateToDoRequest.getTitle());
+                }
+                if(updateToDoRequest.getCompleted()!=null){
+                    updateToDoRequest.setCompleted(updateToDoRequest.getCompleted());
+                }
+
+                return ResponseEntity.ok(todo);
             }
         }
         ErrorMessageClass errorMessage = new ErrorMessageClass("Bad requesy");
