@@ -1,5 +1,8 @@
 package comTodoApi2.ToDoApi2;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -14,5 +17,11 @@ public class ToDoController {
         todos.add(new ToDo(1,false,"Todo 1",1));
         todos.add(new ToDo(2,true,"Todo 2",10));
 
+
+
+    }
+    @GetMapping("/getTodo")
+    public List<ToDo> getTodos(){
+        return todos;
     }
 }

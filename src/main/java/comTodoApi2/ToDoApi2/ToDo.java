@@ -2,7 +2,7 @@ package comTodoApi2.ToDoApi2;
 
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class ToDo {
     private int id;
     private boolean isCompleted;
